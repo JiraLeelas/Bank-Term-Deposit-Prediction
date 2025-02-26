@@ -34,8 +34,8 @@ Given that the majority of subscribed clients work in management, which also rep
 
 Considering both contact performance and account balance, retried clients are another group that the marketing team should prioritized to as they have among the highest conversion rate (22.79%) and having the highest median account balance €787. Given the high conversion rate of students and account balance (€502) above the overall median, this group should be contacted more to leverage the high conversion rate. <br>
 
-<img src=".//eda_plots//scatter-conv-sub-job.png" width="600" height="300">
-<img src=".//eda_plots//scatter-med-bal-job.png" width="600" height="300">
+<img src=".//eda_plots//scatter-conv-sub-job.png" width="600" height="400">
+<img src=".//eda_plots//scatter-med-bal-job.png" width="600" height="400">
 
 With the assocication of marial age to marital statuses, the new campaign should contact clients with older age as they are more likely to subscribe.
 <br>
