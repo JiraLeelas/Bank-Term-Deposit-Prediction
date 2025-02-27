@@ -6,13 +6,6 @@ A bank term deposit is a fixed-term investment that offer higher interest rates 
 The dataset used in this repository is the [Bank Marketing Full Dataset](https://archive.ics.uci.edu/dataset/222/bank+marketing) 
 available publicly on UC Irvine Machine Learning Repository. The dataset contains information from an anonymous Portuguese banking direct phone call marketing campaign to promote bank term deposit subscriptions (Moro et al., 2014).
 
-## Modelling Processes
-1. Exploratory data analysis
-2. Preprocessing
-3. Initial Modelling
-4. Model Tuning and Selection
-5. Conclusion and Future Work
-
 ## Exploratory Data Analysis Summary
 ### Who are the major bank clients?
 Univariate analysis revealed that this anonymous Portuguese bank clients consisted predominantly of clients aged 35-44 years (32.1%), the majority of them having a blue-collar occupation (21.5%), with secondary education level as the common education level (51.3%), and 60.2% of the clients are married. Clients have a median annual account balance of €448, majority of them do not have credit in default (98.2%), no personal loan (84.0%), and housing loan (55.6%).  <br>
@@ -34,8 +27,8 @@ Given that the majority of subscribed clients work in management, which also rep
 
 Considering both contact performance and account balance, retried clients are another group that the marketing team should prioritized to as they have among the highest conversion rate (22.79%) and having the highest median account balance €787. Given the high conversion rate of students and account balance (€502) above the overall median, this group should be contacted more to leverage the high conversion rate. <br>
 
-<img src=".//eda_plots//scatter-conv-sub-job.png" width="600" height="300">
-<img src=".//eda_plots//scatter-med-bal-job.png" width="600" height="300">
+<img src=".//eda_plots//scatter-conv-sub-job.png" width="600" height="400">
+<img src=".//eda_plots//scatter-med-bal-job.png" width="600" height="400">
 
 With the assocication of marial age to marital statuses, the new campaign should contact clients with older age as they are more likely to subscribe.
 <br>
@@ -52,12 +45,30 @@ Additionally, subscribed clients tend to have a longer average contact duration 
 Finally, data from previous campaign contact days reveals that clients who subscribed to the current campaign had a shorter median contact gap of 181 days, compared to 232 days for non-subscribed clients. This indicates that to maximize conversion rates, previously contacted clients should be followed up more frequently in future campaigns.
 <br>
 
-### Next Steps for Modelling
-- As the distribution between classes is not equivalent, training the model on imbalacce data could lead to model biases  towards major class, not subscribed. Thus, techniques such as class weighting and resampling techniques (e.g., random oversampling and random undersampling) should be explored.
-- Feature variable of pcdays and previous have extremely high Spearman correlation at 0.99. As Spearman’s method does not measure the linear relationship like Pearson, this high correlation among variable will be further investigate during model evaluation to determine potential case of multicollinearity. 
-
 ## Modelling Summary
-- To be updated
+
+- To evaluate the performance of different modeling approaches to the bank marketing data under local computational strain, only 40% of the dataset was used for the training and testing data.
+
+- Categorical variables were encoded using binary, nominal (OneHot), and ordinal encoding based on feature characteristics. Cyclical encoding was applied to days and months, while numerical variables were normalized to mitigate the impact of outliers.
+
+- With the business goal for our model is to identify potential term deposit subscribers. This is too reduce the overall cost of contacting a large number of bank clients. Given the high cost of false negatives (misclassifying subscribers as non-subscribers), our modeling tuning priorities recall and precision-recall curve performance over the receiver operation characteristic (ROC) curve.
+  
+- To address class imbalance, class weighting was applied across all models to penalize model classification, ensuring the model focuses on subscribed clients (positive classes).
+
+- To find the most suitable model, Decision Tree, Random Forest, AdaBoost, XGBoost, Logistic Regression, and Support Vector Machine models were trained and compared based on recall, the precision-recall curve, and the F1 score. From the modeling results, XGBoost emerged as the optimal model due to its high recall (87.40%), high balance between precision and recall trade-off (F1 58.18%), and strong precision-recall curve performance (PR AUG 0.607).
+
+<img src=".//md_plots//pr-curve.png" width="600" height="400"> 
+
+<img src=".//md_plots//params-comp.png" width="600" height="400">
+
+- XGBoost model performance on the test dataset shows that it correctly identifies most positive cases, achieving a recall of 0.862 and a precision of 0.708. This indicates that while the model effectively captures the majority of actual subscribers, it also produces a relatively high number of false positives. Nevertheless, this model performance is suitable to our goal of reducing telemarketing efforts by focusing on potential clients.
+
+<img src=".//md_plots//xgb-confusion.png" width="500" height="400">
+<img src=".//md_plots//xgb-confus-sum.png" width="400" height="300">
+
+- Analyzing features contributions to XGBoost’s classification decisions revealed that the most influential features are contact duration, previous campaign outcome status, and the month of contact. This finding aligns with our initial data exploration, where these features demonstrated a clear distinction between subscribed and non-subscribed clients.
+
+<img src=".//md_plots//shap-features.png" width="600" height="400">
 
 ## References
 - Chen, J. (2024) Term deposit: Definition, how it’s used, rates, and how to invest, Investopedia. Available at: https://www.investopedia.com/terms/t/termdeposit.asp (Accessed: 03 February 2025). 
