@@ -1,4 +1,6 @@
 # Portuguese Bank Term Deposit Subscription Prediction
+*Note:* A Kaggle implementation featuring [exploratory data analysis](https://www.kaggle.com/code/jiraleelas/bank-marketing-pt-1-exploratory-data-analysis) and [predictive modeling](https://www.kaggle.com/code/jiraleelas/bank-marketing-pt-2-predictive-modelling) is available.
+
 ## Problem Statement
 A bank term deposit is a fixed-term investment that offer higher interest rates than standard savings accounts. In exchanged for higher interest rates, customers agree not to withdraw their deposit for a specific period (Chen, 2024). This arrangement appeals to investors seeking low-risked investments options while providing banks with stable sources of cash for lending at higher interest rate. This study aims to utilize a marketing dataset to create a predictive model to predict wheter a client would subscribed to term deposit, revealing a valuable insight to the bank marketing function.
 
